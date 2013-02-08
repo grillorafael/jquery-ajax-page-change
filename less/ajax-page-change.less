@@ -1,0 +1,30 @@
+@import "colors.less";
+
+#loadingContent
+{
+	width: 4em;
+	height: 4em;
+	border-radius: 2em;
+	margin: auto;
+	background-color: @colorOrange;
+	opacity: 0.8;
+	-webkit-animation-name: rotate; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-iteration-count:  infinite;
+	-webkit-animation-timing-function: linear;
+	div{
+		width: 1em;
+		height: 4em;
+		background-color: @colorCream;
+		margin: auto;
+	}
+}
+
+@-webkit-keyframes rotate {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to { 
+		-webkit-transform: rotate(360deg);
+	}
+}
