@@ -5,7 +5,8 @@
 (function($){
 	$.fn.ajaxLinks = function(options){
 		var defaults = {
-			contentSelector : '#content',
+			replaceSelector : '#content',
+			searchSelector : '#content',
 			loaderSelector : '#loadingContent',
 			linkSelector : "a[data-link='ajax']",
 			minLoadTime : 800
@@ -52,7 +53,7 @@
 						setTimeout(function(){
 							var $htmlData = $(data);
 							$(opts.loaderSelector).fadeOut(function(){
-								$(opts.contentSelector).html($htmlData.find(opts.contentSelector).html());
+								$(opts.replaceSelector).html($htmlData.find(opts.searchSelector).html());
 							});
 						}, loadTime);
 					});
