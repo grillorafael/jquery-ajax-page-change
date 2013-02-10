@@ -1,7 +1,11 @@
 /*
-* TODO: COLOCAR UMA DOCUMENTACAO E COLOCAR NO GITHUB
-*
-*/
+ * jQuery Ajax Page Change Plugin 1.0.0
+ * https://github.com/grillorafael/jquery-ajax-page-change
+ *
+ * Copyright 2013, Rafael Grillo
+ * http://rgrillo.com
+ */
+
 (function($){
 	$.fn.ajaxLinks = function(options){
 		var defaults = {
