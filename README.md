@@ -40,3 +40,10 @@ Default Options
  * loaderSelector : '#loadingContent' -> This is the loader selector
  * linkSelector : "a[data-link='ajax']" -> This is the link selector, the selector we will search inside the main selector you aplied the ajaxLinks()
  * minLoadTime : 800 -> This is the minimum loading time in MS
+
+
+Roadmap
+======================
+
+ * Identify page title so the plugin can change the current page title
+ * Add a callback function option
