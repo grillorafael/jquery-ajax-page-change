@@ -50,7 +50,7 @@ Default Options
 Roadmap
 ======================
 
- - Identify page title so the plugin can change the current page title
+ - [x] Identify page title so the plugin can change the current page title
  - Add a callback function option
  - Effects for a better transition
  - More loader options
