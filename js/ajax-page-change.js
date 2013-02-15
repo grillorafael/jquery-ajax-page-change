@@ -8,11 +8,17 @@
 
 (function($){
 	$.fn.ajaxLinks = function(options){
+		var TITLE_SELECTOR = 'title';
+		var BEG_TITLE_TAG = '<title>';
+		var END_TITLE_TAG = '</title>';
+
 		var defaults = {
 			replaceSelector : '#content',
 			searchSelector : '#content',
 			loaderSelector : '#loadingContent',
 			linkSelector : "a[data-link='ajax']",
+			changeTitle: true,
+			titleSelector: "title",
 			minLoadTime : 800
 		};
 
@@ -32,7 +38,6 @@
 		$(opts.loaderSelector).hide();
 		return this.each(function(i, obj){
 			var $element = jQuery(obj);
-			//TODO ESTA PARANDO AQUI
 			var $anchors = $element.find(opts.linkSelector).get();
 			$.each($anchors, function(j,ele){
 				$(ele).attr('onclick', 'return false');
@@ -58,6 +63,22 @@
 							var $htmlData = $(data);
 							$(opts.loaderSelector).fadeOut(function(){
 								$(opts.replaceSelector).html($htmlData.find(opts.searchSelector).html());
+								if(opts.changeTitle)
+								{
+									var newTitle = '';
+									if(opts.titleSelector == TITLE_SELECTOR)
+									{
+										// In this case we need to capture the title inside the head tag
+										var begIndex = data.indexOf(BEG_TITLE_TAG) + BEG_TITLE_TAG.length;
+										var endIndex = data.indexOf(END_TITLE_TAG);
+										newTitle = data.substring(begIndex, endIndex);
+									}
+									else
+									{
+										newTitle = $htmlData.find(opts.titleSelector).text();
+									}
+									document.title = newTitle;
+								}
 							});
 						}, loadTime);
 					});
