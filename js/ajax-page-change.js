@@ -7,7 +7,7 @@
  */
 
 (function($){
-	$.fn.ajaxLinks = function(options){
+	$.fn.ajaxLinks = function(options, callback){
 		var TITLE_SELECTOR = 'title';
 		var BEG_TITLE_TAG = '<title>';
 		var END_TITLE_TAG = '</title>';
@@ -19,8 +19,14 @@
 			linkSelector : "a[data-link='ajax']",
 			changeTitle: true,
 			titleSelector: "title",
+			transitionEffect:"none",
 			minLoadTime : 800
 		};
+
+		if(!callback)
+		{
+			callback = function(){};
+		}
 
 		var opts = jQuery.extend(defaults, options);
 
@@ -42,6 +48,20 @@
 			$.each($anchors, function(j,ele){
 				$(ele).attr('onclick', 'return false');
 				$(ele).click(function(event){
+					if(opts.transitionEffect != 'none')
+					{
+						if(opts.transitionEffect == 'fade')
+						{
+							$(opts.replaceSelector).animate({
+								opacity: 0
+							}, 1000);
+						}
+						else if(opts.transitionEffect == 'slideVertical')
+						{
+							$(opts.replaceSelector).slideToggle(1000);
+						}
+					}
+
 					$(opts.loaderSelector).fadeIn();
 					var beg = new Date();
 					var url = $(event.target).attr('href');
@@ -63,6 +83,21 @@
 							var $htmlData = $(data);
 							$(opts.loaderSelector).fadeOut(function(){
 								$(opts.replaceSelector).html($htmlData.find(opts.searchSelector).html());
+
+								if(opts.transitionEffect != 'none')
+								{
+									if(opts.transitionEffect == 'fade')
+									{
+										$(opts.replaceSelector).animate({
+											opacity: 1
+										}, 1000);
+									}
+									else if(opts.transitionEffect == 'slideVertical')
+									{
+										$(opts.replaceSelector).slideToggle(1000);
+									}
+								}
+
 								if(opts.changeTitle)
 								{
 									var newTitle = '';
@@ -80,6 +115,7 @@
 									document.title = newTitle;
 								}
 							});
+							callback();
 						}, loadTime);
 					});
 				});
