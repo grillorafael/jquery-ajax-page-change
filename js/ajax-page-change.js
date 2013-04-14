@@ -17,6 +17,8 @@
 			searchSelector : '#content',
 			loaderSelector : '#loadingContent',
 			linkSelector : "a[data-link='ajax']",
+			enableAnalyticsTrack: false,
+			enableUrlChange: true,
 			changeTitle: true,
 			titleSelector: "title",
 			transitionEffect:"none",
@@ -65,6 +67,10 @@
 					$(opts.loaderSelector).fadeIn();
 					var beg = new Date();
 					var url = $(event.target).attr('href');
+					if(opts.enableAnalyticsTrack)
+					{
+						_gaq.push(['_trackPageview', url]);
+					}
 					$.get(url, function(data) {
 						var then = new Date();
 						var dif = then.getTime() - beg.getTime();
@@ -113,6 +119,12 @@
 										newTitle = $htmlData.find(opts.titleSelector).text();
 									}
 									document.title = newTitle;
+								}
+
+								if(opts.enableUrlChange)
+								{
+									console.log(url);
+									window.history.pushState(url, "Title", url);
 								}
 							});
 							callback();
